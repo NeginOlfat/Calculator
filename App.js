@@ -1,18 +1,22 @@
 import React from "react";
 import {View,Text, StyleSheet} from "react-native";
 import Button from "./Components/Button"
-
+import calculate,{initialState} from "./Components/calculate";
 class App extends React.Component{
-
+  constructor(props){
+    super(props);
+    this.state=initialState
+  }
+  
   handleTap = (type, value) =>{
-    return console.log(type+' '+value)
+    this.setState(state => calculate(type, value, state));
   }
 
   render(){
     return(
       <View style={styles.container}>
         <View>
-          <Text style={styles.value}>0</Text>
+          <Text style={styles.value}>{parseFloat(this.state.currentValue)}</Text>
         </View>
         <View style={{flexDirection:'row'}}>
           <Button text='C' theme='secondary' onPress={() => this.handleTap('clear')}/>
