@@ -7,7 +7,7 @@ class App extends React.Component{
     super(props);
     this.state=initialState
   }
-  
+
   handleTap = (type, value) =>{
     this.setState(state => calculate(type, value, state));
   }
@@ -16,7 +16,13 @@ class App extends React.Component{
     return(
       <View style={styles.container}>
         <View>
-          <Text style={styles.value}>{parseFloat(this.state.currentValue)}</Text>
+          <Text style={styles.previousValue}>
+            {(this.state.previousValue === null)? '' : parseFloat(this.state.previousValue)}
+          </Text>
+          <Text style={styles.operator}>
+            {this.state.operator}
+          </Text>
+          <Text style={styles.currentValue}>{parseFloat(this.state.currentValue)}</Text>
         </View>
         <View style={{flexDirection:'row'}}>
           <Button text='C' theme='secondary' onPress={() => this.handleTap('clear')}/>
@@ -62,11 +68,25 @@ const styles=StyleSheet.create({
     backgroundColor: "#202020",
     justifyContent: "flex-end"
   },
-  value: {
+  currentValue: {
     color: "#fff",
     fontSize: 40,
     textAlign: "right",
     marginRight: 20,
+    marginBottom: 20
+  },
+  previousValue:{
+    color: "#D1D1D1",
+    fontSize: 38,
+    textAlign: "right",
+    marginRight: 25,
+    marginBottom: 20
+  },
+  operator:{
+    color: "#D1D1D1",
+    fontSize: 38,
+    textAlign: "left",
+    marginLeft: 10,
     marginBottom: 20
   }
 });
