@@ -44,17 +44,22 @@ export const handleEqual = state =>{
     return state;
 }
 
+export const handleOperator = (value,state) =>{
+    if(state.previousValue === null)
+        return{
+            operator:value,
+            previousValue:state.currentValue,
+            currentValue:0,
+        };
+}
+
 const calculate = (type, value, state) =>{
     switch(type){
         case 'number':
             return handleNumber(value,state);
            
         case 'operator':
-            return{
-                operator:value,
-                previousValue:state.currentValue,
-                currentValue:0,
-            };
+            return handleOperator(value,state);
             
         case 'equal':
             return handleEqual(state);
